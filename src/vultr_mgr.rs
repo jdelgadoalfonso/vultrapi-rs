@@ -38,4 +38,8 @@ impl<'t> VultrMgr<'t> {
     pub fn regions(&self) -> RequestBuilder<'t, response::Regions> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/regions/list")
     }
+
+    pub fn plans(&self) -> RequestBuilder<'t, response::Plans> {
+        RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/plans/list")
+    }
 }
