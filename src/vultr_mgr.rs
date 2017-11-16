@@ -30,4 +30,8 @@ impl<'t> VultrMgr<'t> {
     pub fn operating_systems(&self) -> RequestBuilder<'t, response::OperatingSystems> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/os/list")
     }
+
+    pub fn snapshots(&self) -> RequestBuilder<'t, response::Snapshots> {
+        RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/snapshot/list")
+    }
 }
