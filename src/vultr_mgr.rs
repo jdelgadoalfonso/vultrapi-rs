@@ -18,4 +18,8 @@ impl<'t> VultrMgr<'t> {
     pub fn applications(&self) -> RequestBuilder<'t, response::Applications> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/app/list")
     }
+
+    pub fn auth(&self) -> RequestBuilder<'t, response::Auth> {
+        RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/auth/info")
+    }
 }
