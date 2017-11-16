@@ -35,6 +35,10 @@ impl<'t> VultrMgr<'t> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/snapshot/list")
     }
 
+    pub fn servers(&self) -> RequestBuilder<'t, response::Servers> {
+        RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/server/list")
+    }
+
     pub fn regions(&self) -> RequestBuilder<'t, response::Regions> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/regions/list")
     }

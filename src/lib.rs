@@ -26,4 +26,4 @@ pub mod request;
 pub mod response;
 
 pub use vultr_mgr::VultrMgr;
-pub use request::RequestBuilder;
+pub use request::{RequestBuilder, ServerOptions, ScheduleOptions};
