@@ -19,6 +19,8 @@ extern crate serde_json;
 extern crate serde_urlencoded;
 
 mod vultr_mgr;
+#[macro_use]
+mod macros;
 
 pub mod request;
 pub mod response;
