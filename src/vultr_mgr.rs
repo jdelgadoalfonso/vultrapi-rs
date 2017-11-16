@@ -26,4 +26,8 @@ impl<'t> VultrMgr<'t> {
     pub fn backups(&self) -> RequestBuilder<'t, response::Backups> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/backup/list")
     }
+
+    pub fn operating_systems(&self) -> RequestBuilder<'t, response::OperatingSystems> {
+        RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/os/list")
+    }
 }
