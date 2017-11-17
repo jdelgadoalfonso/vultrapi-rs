@@ -1,5 +1,5 @@
 <a name=""></a>
-##  (2017-11-16)
+##  (2017-11-17)
 
 
 #### Features
@@ -19,16 +19,6 @@
 #### Documentation
 
 * **VultrMgr:**  add documentation for VultrMgr struct ([207e552b](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/207e552b82cf31ac1ad04ee5d6a26b9137753656))
-
-
-
-<a name=""></a>
-##  (2017-11-16)
-
-
-#### Features
-
-* **Account:**  Implement account info ([16680c7f](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/16680c7fe319ebb015ef9b0dada25902ad7d3c27))
 
 
 
