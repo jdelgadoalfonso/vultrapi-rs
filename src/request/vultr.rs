@@ -1,3 +1,4 @@
+use hyper::StatusCode;
 use hyper::header::{ContentType, Headers};
 
 use response::{HeaderOnly, NamedResponse};
@@ -12,6 +13,7 @@ use std::io::{self, Read};
 
 
 error_chain!{
+    errors { FooError }
     foreign_links {
         Io(io::Error);
         Reqwest(reqwest::Error);
@@ -63,7 +65,11 @@ pub trait VultrRequest<T>: BaseRequest
 
         res.read_to_string(&mut content)?;
 
-        Ok(content)
+        if res.status() != StatusCode::Ok {
+            Err(content.into())
+        } else {
+            Ok(content)
+        }
     }
 
     fn retrieve(&self) -> Result<T> {
