@@ -109,6 +109,21 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
+    pub fn upgrade_plan(self, sub_id: &str, plan_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
+        // POST: "https://api.vultr.com/v1/server/upgrade_plan"
+        // body: "SUBID=576965&VPSPLANID=201"
+        debug!("Upgrade Server {} to plan {}", sub_id, plan_id);
+        let params = &[("SUBID", Some(sub_id)), ("VPSPLANID", Some(plan_id))];
+        let body = serde_urlencoded::to_string(params).unwrap();
+        RequestBuilder {
+            method: Method::Post,
+            api_key: self.api_key,
+            url: String::from("https://api.vultr.com/v1/server/upgrade_plan"),
+            resp_t: PhantomData,
+            body: Some(body),
+        }
+    }
+
     pub fn backup_enable(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/backup_enable"
         // body: "SUBID=576965"

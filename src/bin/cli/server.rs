@@ -78,6 +78,15 @@ fn start_server(m: &ArgMatches, vultr_mgr: &VultrMgr) {
     }
 }
 
+fn upgrade_plan(m: &ArgMatches, vultr_mgr: &VultrMgr) {
+    let id = m.value_of("id").unwrap();
+    let plan = m.value_of("plan").unwrap();
+    match vultr_mgr.servers().upgrade_plan(id, plan).retrieve() {
+        Ok(header_res) => println!("Upgrade Server Plan Status: {}", header_res),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+
 fn backup(m: &ArgMatches, vultr_mgr: &VultrMgr) {
     match m.value_of("enable") {
         Some("true") => backup_enable(m, &vultr_mgr),
@@ -147,6 +156,7 @@ pub fn run(m: &ArgMatches, cfg: &mut Config) {
         ("reboot", Some(m)) => reboot_server(m, &vultr_mgr),
         ("halt", Some(m)) => halt_server(m, &vultr_mgr),
         ("start", Some(m)) => start_server(m, &vultr_mgr),
+        ("upgrade_plan", Some(m)) => upgrade_plan(m, &vultr_mgr),
         ("backup", Some(m)) => backup(m, &vultr_mgr),
         ("schedule", Some(m)) => schedule(m, &vultr_mgr),
         _ => list_servers(&vultr_mgr),
