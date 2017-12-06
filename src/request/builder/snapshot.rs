@@ -23,7 +23,7 @@ impl<'t> RequestBuilder<'t, response::Snapshots> {
     {
         // POST: "https://api.vultr.com/v1/snapshot/create"
         // body: "SUBID=1&description=blablabla"
-        debug!("Create new Server");
+        debug!("Create a new Snapshot");
         let params = &[("SUBID", Some(sub_id)), ("description", desc)];
         let body = serde_urlencoded::to_string(params).unwrap();
         RequestBuilder {
@@ -40,7 +40,7 @@ impl<'t> RequestBuilder<'t, response::Snapshots> {
     {
         // POST: "https://api.vultr.com/v1/snapshot/destroy"
         // body: "SNAPSHOTID=1"
-        debug!("Create new Server");
+        debug!("Destroy a Snapshot");
         RequestBuilder {
             method: Method::Post,
             api_key: self.api_key,
