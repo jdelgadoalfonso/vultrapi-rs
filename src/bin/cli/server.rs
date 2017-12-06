@@ -27,7 +27,7 @@ fn list_servers(vultr_mgr: &VultrMgr) {
 }
 
 fn create_server(m: &ArgMatches, vultr_mgr: &VultrMgr) {
-    let location = m.value_of("id").unwrap();
+    let location = m.value_of("location").unwrap();
     let plan = m.value_of("plan").unwrap();
     let snapshot = m.value_of("snapshot").unwrap();
     let hostname = m.value_of("hostname");
