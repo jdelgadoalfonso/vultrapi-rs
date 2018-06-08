@@ -1,10 +1,7 @@
 #![allow(non_snake_case)]
 
 use response::{NotArray, NamedResponse};
-
-use std::borrow::Cow;
-use std::fmt;
-use std::collections::HashMap;
+use std::{borrow::Cow, collections::HashMap, fmt};
 
 
 #[derive(Deserialize, Debug, PartialEq, Eq, Hash)]

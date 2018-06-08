@@ -1,5 +1,4 @@
 use response;
-
 use request::{VultrRequest, RequestBuilder};
 
 

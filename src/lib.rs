@@ -1,11 +1,6 @@
-#![crate_type= "lib"]
-#![feature(custom_derive,
-           custom_attribute,
-           plugin)]
-#![deny(trivial_casts,
-        trivial_numeric_casts,
-        unsafe_code,
-        unused_import_braces)]
+#![crate_type = "lib"]
+#![feature(custom_derive, custom_attribute, plugin)]
+#![deny(trivial_casts, trivial_numeric_casts, unsafe_code, unused_import_braces)]
 
 #[macro_use]
 extern crate error_chain;

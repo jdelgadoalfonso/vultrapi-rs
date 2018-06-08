@@ -1,8 +1,5 @@
 use clap::ArgMatches;
-
-use vultrapi::VultrMgr;
-use vultrapi::request::VultrRequest;
-
+use vultrapi::{VultrMgr, request::VultrRequest};
 use config::Config;
 
 

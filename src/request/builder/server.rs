@@ -1,11 +1,7 @@
 use response;
-
 use request::{VultrRequest, RequestBuilder};
-
 use reqwest::Method;
-
 use serde_urlencoded;
-
 use std::marker::PhantomData;
 
 

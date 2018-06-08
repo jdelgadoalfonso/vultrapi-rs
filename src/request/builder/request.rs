@@ -1,11 +1,7 @@
 use request::{vultr, BaseRequest, VultrRequest};
-
 use response::HeaderOnly;
-
 use reqwest::Method;
-
-use std::fmt;
-use std::marker::PhantomData;
+use std::{fmt, marker::PhantomData};
 
 
 pub struct RequestBuilder<'t, T> {

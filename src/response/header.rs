@@ -1,11 +1,7 @@
 use hyper::header;
-
 use response::{self, NamedResponse};
-
 use reqwest::{Response, StatusCode};
-
-use std::borrow::Cow;
-use std::fmt;
+use std::{borrow::Cow, fmt};
 
 
 #[derive(Deserialize)]

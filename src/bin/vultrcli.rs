@@ -2,14 +2,11 @@ extern crate clap;
 extern crate vultrapi;
 
 use clap::{App, ArgMatches, SubCommand};
+use config::Config;
+use cli::{account, application, auth, backup, os, plan, region, snapshot, server};
 
 mod config;
 mod cli;
-
-use config::Config;
-use cli::{
-    account, application, auth, backup, os, plan, region, snapshot, server
-};
 
 
 fn get_api_key(m: &ArgMatches) -> String {

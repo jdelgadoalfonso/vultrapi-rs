@@ -1,12 +1,9 @@
-use hyper::StatusCode;
-use hyper::header::{ContentType, Headers};
-
+use hyper::{
+    StatusCode, header::{ContentType, Headers}
+};
 use response::{HeaderOnly, NamedResponse};
-
 use reqwest::{self, Client, Method, RequestBuilder};
-
 use serde::de::DeserializeOwned;
-
 use serde_json::{self, Value};
 
 use std::io::{self, Read};
