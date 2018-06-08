@@ -1,9 +1,10 @@
 <a name=""></a>
-##  (2017-11-17)
+##  (2018-06-08)
 
 
 #### Features
 
+*   add upgrade_plan functionality ([271979b1](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/271979b1c4bff20f83addeabdecf13cf81eb91c7))
 *   implement a CLI for vultrapi crate ([24e41472](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/24e41472f66ef76291c2946f7008f59d34755a21))
 * **Account:**  implement account info ([6125d976](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/6125d976b72d01bf383fe62200186ad188575350))
 * **Application:**  implement applications list ([43b245b0](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/43b245b05247d48cf2c42f6f1c33dfdf7a139504))
@@ -19,6 +20,14 @@
 #### Documentation
 
 * **VultrMgr:**  add documentation for VultrMgr struct ([207e552b](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/207e552b82cf31ac1ad04ee5d6a26b9137753656))
+
+#### Bug Fixes
+
+* **server create:**  location parameter was not correctly get from arguments ([c9dd841c](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/c9dd841c6d4cbff59b5c44a760a21bf84f033fc5))
+
+#### Improvements
+
+* **Errors:**  check status error and throw an error if distinct of complete ([c11ddc48](https://github.com/jdelgadoalfonso/vultrapi-rs/commit/c11ddc48bd956038c5027bfa40727f118e74f7b4))
 
 
 
