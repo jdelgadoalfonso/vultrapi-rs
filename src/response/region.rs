@@ -1,5 +1,3 @@
-#![allow(non_snake_case)]
-
 use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, collections::HashMap, fmt};
 

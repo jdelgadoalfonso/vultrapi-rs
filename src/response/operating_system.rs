@@ -1,12 +1,11 @@
-#![allow(non_snake_case)]
-
 use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, collections::HashMap, fmt};
 
 
 #[derive(Deserialize, Debug, PartialEq, Eq, Hash)]
 pub struct OperatingSystem {
-    pub OSID: u32,
+    #[serde(rename="OSID")]
+    pub os_id: u32,
     pub name: String,
     pub arch: String,
     pub family: String,
@@ -23,7 +22,7 @@ impl fmt::Display for OperatingSystem {
                 \tArchitecture: \"{}\"\n\
                 \tFamily: \"{}\"\n\
                 \tWindows: {}",
-               self.OSID,
+               self.os_id,
                self.name,
                self.arch,
                self.family,
