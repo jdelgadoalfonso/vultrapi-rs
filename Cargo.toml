@@ -10,16 +10,16 @@ readme = "README.md"
 keywords = ["vultr", "lib", "api"]
 
 [dependencies]
-clap = "2.28.0"
-clippy = { version = "0.0.170", optional = true }
 error-chain = "0.11.0"
-hyper = "0.11.7"
+clap = "2.31.2"
+clippy = { version = "0.0.206", optional = true }
+hyper = "0.11.27"
 reqwest = { git = "https://github.com/seanmonstar/reqwest.git", features = ["unstable"] }
-serde = "1.0.23"
+serde = "1.0.66"
 serde_codegen = "0.9.0"
-serde_derive = "1.0.23"
-serde_json = "1.0.7"
-serde_urlencoded = "0.5.1"
+serde_derive = "1.0.66"
+serde_json = "1.0.20"
+serde_urlencoded = "0.5.2"
 
 [features]
 default = ["nightly"]
