@@ -1,22 +1,13 @@
+use ::ResultVultr;
 use hyper::{
     StatusCode, header::{ContentType, Headers}
 };
 use response::{HeaderOnly, NamedResponse};
-use reqwest::{self, Client, Method, RequestBuilder};
+use reqwest::{Client, Method, RequestBuilder};
 use serde::de::DeserializeOwned;
 use serde_json::{self, Value};
+use std::io::Read;
 
-use std::io::{self, Read};
-
-
-error_chain!{
-    errors { FooError }
-    foreign_links {
-        Io(io::Error);
-        Reqwest(reqwest::Error);
-        SerdeJSON(serde_json::Error);
-    }
-}
 
 header! { (APIKEY, "API-Key") => [String] }
 
@@ -47,7 +38,7 @@ pub trait VultrRequest<T>: BaseRequest
         req_builder
     }
 
-    fn retrieve_header(&self) -> Result<HeaderOnly> {
+    fn retrieve_header(&self) -> ResultVultr<HeaderOnly> {
         let mut rb = self.request();
         let res = rb.send()?;
         let header = HeaderOnly::from_response(res)?;
@@ -55,7 +46,7 @@ pub trait VultrRequest<T>: BaseRequest
         Ok(header)
     }
 
-    fn retrieve_json(&self) -> Result<String> {
+    fn retrieve_json(&self) -> ResultVultr<String> {
         let mut rb = self.request();
         let mut res = rb.send()?;
         let mut content = String::new();
@@ -63,13 +54,13 @@ pub trait VultrRequest<T>: BaseRequest
         res.read_to_string(&mut content)?;
 
         if res.status() != StatusCode::Ok {
-            Err(content.into())
+            Err(format_err!("{}", content))
         } else {
             Ok(content)
         }
     }
 
-    fn retrieve(&self) -> Result<T> {
+    fn retrieve(&self) -> ResultVultr<T> {
         let resp = self.retrieve_json()?;
         let v = serde_json::from_str::<Value>(resp.as_ref())?;
         let t = serde_json::from_value(v)?;

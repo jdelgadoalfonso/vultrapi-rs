@@ -3,7 +3,7 @@
 #![deny(trivial_casts, trivial_numeric_casts, unsafe_code, unused_import_braces)]
 
 #[macro_use]
-extern crate error_chain;
+extern crate failure;
 #[macro_use]
 extern crate hyper;
 extern crate reqwest;
@@ -22,3 +22,5 @@ pub mod response;
 
 pub use vultr_mgr::VultrMgr;
 pub use request::{RequestBuilder, ServerOptions, ScheduleOptions};
+
+pub type ResultVultr<T> = Result<T, failure::Error>;

@@ -10,9 +10,9 @@ readme = "README.md"
 keywords = ["vultr", "lib", "api"]
 
 [dependencies]
-error-chain = "0.11.0"
 clap = "2.31.2"
 clippy = { version = "0.0.206", optional = true }
+failure = "0.1.1"
 hyper = "0.11.27"
 reqwest = { git = "https://github.com/seanmonstar/reqwest.git", features = ["unstable"] }
 serde = "1.0.66"

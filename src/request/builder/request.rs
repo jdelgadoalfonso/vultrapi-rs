@@ -1,4 +1,5 @@
-use request::{vultr, BaseRequest, VultrRequest};
+use ::ResultVultr;
+use request::{BaseRequest, VultrRequest};
 use response::HeaderOnly;
 use reqwest::Method;
 use std::{fmt, marker::PhantomData};
@@ -67,7 +68,7 @@ impl<'t, T> fmt::Display for RequestBuilder<'t, T> {
 }
 
 impl<'t> VultrRequest<HeaderOnly> for RequestBuilder<'t, HeaderOnly> {
-    fn retrieve(&self) -> Result<HeaderOnly, vultr::Error> {
+    fn retrieve(&self) -> ResultVultr<HeaderOnly> {
         self.retrieve_header()
     }
 }

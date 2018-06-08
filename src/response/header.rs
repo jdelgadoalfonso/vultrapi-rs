@@ -1,3 +1,4 @@
+use ::ResultVultr;
 use hyper::header;
 use response::{self, NamedResponse};
 use reqwest::{Response, StatusCode};
@@ -20,7 +21,7 @@ pub struct HeaderOnly {
 impl response::NotArray for HeaderOnly {}
 
 impl HeaderOnly {
-    pub fn from_response(r: Response) -> Result<HeaderOnly, String> {
+    pub fn from_response(r: Response) -> ResultVultr<HeaderOnly> {
         let c_type = match r.headers().get::<header::ContentType>() {
             Some(c) => c.to_string(),
             None => String::new(),
