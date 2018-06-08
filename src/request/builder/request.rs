@@ -37,8 +37,8 @@ impl<'t, T> RequestBuilder<'t, T> {
 }
 
 impl<'t, T> BaseRequest for RequestBuilder<'t, T> {
-    fn api_key(&self) -> &str { self.api_key }
     fn url(&self) -> &str { &self.url[..] }
+    fn api_key(&self) -> &str { self.api_key }
     fn method(&self) -> Method { self.method.clone() }
     fn body(&self) -> Option<String> { self.body.clone() }
 }
