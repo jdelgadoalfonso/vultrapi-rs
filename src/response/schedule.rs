@@ -2,7 +2,7 @@ use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, fmt};
 
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Schedule {
     pub enabled: bool,
     pub cron_type: String,

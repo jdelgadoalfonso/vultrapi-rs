@@ -4,7 +4,7 @@ use std::borrow::Cow;
 use std::fmt;
 
 
-#[derive(Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Auth {
     pub acls: Vec<String>,
     pub email: String,

@@ -2,13 +2,13 @@ use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, collections::HashMap, fmt};
 
 
-#[derive(Deserialize, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct CreatedServer {
     #[serde(rename="SUBID")]
     sub_id: String
 }
 
-#[derive(Deserialize, Debug, PartialEq)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Server {
     #[serde(rename="SUBID")]
     pub sub_id: String,

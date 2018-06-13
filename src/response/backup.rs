@@ -7,7 +7,7 @@ use std::fmt;
 use std::collections::HashMap;
 
 
-#[derive(Deserialize, Debug, PartialEq, Eq, Hash)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Hash)]
 pub struct Backup {
     pub BACKUPID: String,
     pub date_created: String,

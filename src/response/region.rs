@@ -2,7 +2,7 @@ use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, collections::HashMap, fmt};
 
 
-#[derive(Deserialize, Debug, PartialEq, Eq, Hash)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Hash)]
 pub struct Region {
     #[serde(rename="DCID")]
     pub dc_id: String,

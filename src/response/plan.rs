@@ -2,7 +2,7 @@ use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, collections::HashMap, fmt};
 
 
-#[derive(Deserialize, Debug, PartialEq, Eq, Hash)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Hash)]
 pub struct Plan {
     #[serde(rename="VPSPLANID")]
     pub vps_plan_id: String,

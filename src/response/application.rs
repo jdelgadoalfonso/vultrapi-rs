@@ -5,7 +5,7 @@ use std::fmt;
 use std::collections::HashMap;
 
 
-#[derive(Deserialize, Debug, PartialEq, Eq, Hash)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Eq, Hash)]
 pub struct Application {
     #[serde(rename="APPID")]
     pub app_id: String,
