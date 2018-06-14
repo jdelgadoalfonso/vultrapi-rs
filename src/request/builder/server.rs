@@ -121,6 +121,21 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
+    pub fn upgrade_plan_list(self, sub_id: &str) -> RequestBuilder<'t, response::PlanIds> {
+        // POST: "https://api.vultr.com/v1/server/upgrade_plan_list"
+        // body: "SUBID=576965"
+        debug!("Retrieve a list of plan ids for Server {}", sub_id, plan_id);
+        let params = &[("SUBID", Some(sub_id))];
+        let url_params = serde_urlencoded::to_string(params).unwrap();
+        RequestBuilder {
+            method: Method::Get,
+            api_key: self.api_key,
+            url: format!("https://api.vultr.com/v1/server/upgrade_plan_list?{}", url_params),
+            resp_t: PhantomData,
+            body: None,
+        }
+    }
+
     pub fn backup_enable(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/backup_enable"
         // body: "SUBID=576965"
@@ -192,3 +207,5 @@ impl<'t> RequestBuilder<'t, response::Servers> {
 }
 
 impl<'t> VultrRequest<response::Servers> for RequestBuilder<'t, response::Servers> {}
+
+impl<'t> VultrRequest<response::PlanIds> for RequestBuilder<'t, response::PlanIds> {}

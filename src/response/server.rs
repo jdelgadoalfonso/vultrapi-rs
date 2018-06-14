@@ -141,3 +141,9 @@ pub type Servers = HashMap<String, Server>;
 impl NamedResponse for Servers {
     fn name<'a>() -> Cow<'a, str> { "server".into() }
 }
+
+pub type PlanIds = Vec<u32>;
+
+impl NamedResponse for PlanIds {
+    fn name<'a>() -> Cow<'a, str> { "plan Ids".into() }
+}
