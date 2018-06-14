@@ -5,11 +5,73 @@ use reqwest::{Response, StatusCode};
 use std::{borrow::Cow, fmt};
 
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 #[serde(remote = "StatusCode")]
-enum StatusCodeDef {}
+enum StatusCodeDef {
+    Continue,
+    SwitchingProtocols,
+    Processing,
+    Ok,
+    Created,
+    Accepted,
+    NonAuthoritativeInformation,
+    NoContent,
+    ResetContent,
+    PartialContent,
+    MultiStatus,
+    AlreadyReported,
+    ImUsed,
+    MultipleChoices,
+    MovedPermanently,
+    Found,
+    SeeOther,
+    NotModified,
+    UseProxy,
+    TemporaryRedirect,
+    PermanentRedirect,
+    BadRequest,
+    Unauthorized,
+    PaymentRequired,
+    Forbidden,
+    NotFound,
+    MethodNotAllowed,
+    NotAcceptable,
+    ProxyAuthenticationRequired,
+    RequestTimeout,
+    Conflict,
+    Gone,
+    LengthRequired,
+    PreconditionFailed,
+    PayloadTooLarge,
+    UriTooLong,
+    UnsupportedMediaType,
+    RangeNotSatisfiable,
+    ExpectationFailed,
+    ImATeapot,
+    MisdirectedRequest,
+    UnprocessableEntity,
+    Locked,
+    FailedDependency,
+    UpgradeRequired,
+    PreconditionRequired,
+    TooManyRequests,
+    RequestHeaderFieldsTooLarge,
+    UnavailableForLegalReasons,
+    InternalServerError,
+    NotImplemented,
+    BadGateway,
+    ServiceUnavailable,
+    GatewayTimeout,
+    HttpVersionNotSupported,
+    VariantAlsoNegotiates,
+    InsufficientStorage,
+    LoopDetected,
+    NotExtended,
+    NetworkAuthenticationRequired,
+    Unregistered(u16),
+}
 
-#[derive(Deserialize)]
+#[derive(Serialize, Deserialize)]
 pub struct HeaderOnly {
     #[serde(rename="content-type")]
     pub content_type: String,
