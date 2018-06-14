@@ -204,6 +204,24 @@ impl<'t> RequestBuilder<'t, response::Servers> {
             body: Some(format!("SUBID={}&BACKUPID={}", sub_id, backup_id)),
         }
     }
+
+    pub fn label_set(self, sub_id: &str, label: &str) ->
+    RequestBuilder<'t, response::HeaderOnly>
+    {
+        // POST: "https://api.vultr.com/v1/server/label_set"
+        // body: "SUBID=576965&label=example"
+        debug!("Set Label {} for Server: {}", label, sub_id);
+        let params = &[("SUBID", Some(sub_id)), ("label", Some(label))];
+        let body = serde_urlencoded::to_string(params).unwrap();
+        RequestBuilder {
+            method: Method::Post,
+            api_key: self.api_key,
+            url: String::from("https://api.vultr.com/v1/server/label_set"),
+            resp_t: PhantomData,
+            body: Some(body),
+        }
+
+    }
 }
 
 impl<'t> VultrRequest<response::Servers> for RequestBuilder<'t, response::Servers> {}
