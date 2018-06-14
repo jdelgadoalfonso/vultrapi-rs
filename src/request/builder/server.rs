@@ -17,6 +17,7 @@ pub struct ServerOptions<'t> {
     pub snapshot_id: Option<&'t str>,
     pub hostname: Option<&'t str>,
     pub label: Option<&'t str>,
+    pub tag: Option<&'t str>,
 }
 
 #[derive(Serialize)]
