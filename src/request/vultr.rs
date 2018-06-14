@@ -43,7 +43,11 @@ pub trait VultrRequest<T>: BaseRequest
         let res = rb.send()?;
         let header = HeaderOnly::from_response(res)?;
 
-        Ok(header)
+        if header.raw_status != StatusCode::Ok {
+            Err(format_err!("{:?}", header.raw_status))
+        } else {
+            Ok(header)
+        }
     }
 
     fn retrieve_json(&self) -> ResultVultr<String> {
