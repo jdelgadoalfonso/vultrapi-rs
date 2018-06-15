@@ -145,6 +145,12 @@ impl<'t> VultrMgr<'t> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/server/list")
     }
 
+    pub fn server_by_filter(&self, sub_id: &str) -> RequestBuilder<'t, response::Server> {
+        let mut url = String::from("https://api.vultr.com/v1/server/list?SUBID=");
+        url.push_str(sub_id);
+        RequestBuilder::new(self.api_key, url.as_str())
+    }
+
     /// Returns a request that can be used to retrieve a list of all active
     /// regions. Note that just because a region is listed here, does not mean
     /// that there is room for new servers.

@@ -12,15 +12,22 @@ fn get_str_to_u32(param: Option<&str>) -> Option<u32> {
     None
 }
 
-fn list_servers(vultr_mgr: &VultrMgr) {
-    match vultr_mgr.servers().retrieve() {
-        Ok(m_servers) => {
-            for (i, server) in &m_servers {
-                println!("Server {}: {{\n{}\n}}", i, server);
-            }
-        },
-        Err(e) => println!("Error: {}", e),
-    }
+fn list_servers(m: &ArgMatches, vultr_mgr: &VultrMgr) {
+    if let Some(sub_id) = m.value_of("id") {
+        match vultr_mgr.server_by_filter(sub_id).retrieve() {
+            Ok(server) => println!("Server: {{\n{}\n}}", server),
+            Err(e) => println!("Error: {}", e),
+        }
+    } else {
+        match vultr_mgr.servers().retrieve() {
+            Ok(m_servers) => {
+                for (i, server) in &m_servers {
+                    println!("Server {}: {{\n{}\n}}", i, server);
+                }
+            },
+            Err(e) => println!("Error: {}", e),
+        }
+    };
 }
 
 fn create_server(m: &ArgMatches, vultr_mgr: &VultrMgr) {
@@ -37,6 +44,7 @@ fn create_server(m: &ArgMatches, vultr_mgr: &VultrMgr) {
         snapshot_id: Some(snapshot),
         hostname: hostname,
         label: label,
+        tag: None,
     }).retrieve() {
         Ok(server) => println!("New Server: {}", server),
         Err(e) => println!("Error: {}", e),
@@ -147,7 +155,7 @@ pub fn run(m: &ArgMatches, cfg: &mut Config) {
     let vultr_mgr = VultrMgr::with_api_key(&cfg.api_key[..]);
 
     match m.subcommand() {
-        ("list", Some(_)) => list_servers(&vultr_mgr),
+        ("list", Some(m)) => list_servers(m, &vultr_mgr),
         ("create", Some(m)) => create_server(m, &vultr_mgr),
         ("destroy", Some(m)) => destroy_server(m, &vultr_mgr),
         ("reboot", Some(m)) => reboot_server(m, &vultr_mgr),
@@ -156,6 +164,6 @@ pub fn run(m: &ArgMatches, cfg: &mut Config) {
         ("upgrade_plan", Some(m)) => upgrade_plan(m, &vultr_mgr),
         ("backup", Some(m)) => backup(m, &vultr_mgr),
         ("schedule", Some(m)) => schedule(m, &vultr_mgr),
-        _ => list_servers(&vultr_mgr),
+        _ => list_servers(m, &vultr_mgr),
     }
 }
