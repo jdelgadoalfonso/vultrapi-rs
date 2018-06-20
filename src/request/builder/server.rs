@@ -2,6 +2,7 @@ use response;
 use request::{VultrRequest, RequestBuilder};
 use reqwest::Method;
 use serde_urlencoded;
+use serde::ser::Serializer;
 use std::marker::PhantomData;
 
 
@@ -18,6 +19,8 @@ pub struct ServerOptions<'t> {
     pub hostname: Option<&'t str>,
     pub label: Option<&'t str>,
     pub tag: Option<&'t str>,
+    #[serde(serialize_with = "serialize_bool")]
+    pub enable_private_network: Option<bool>,
 }
 
 #[derive(Serialize)]
@@ -28,6 +31,17 @@ pub struct ScheduleOptions<'t> {
     pub hour: Option<u32>,
     pub dow: Option<u32>,
     pub dom: Option<u32>,
+}
+
+fn serialize_bool<S>(x: &Option<bool>, s: S) -> Result<S::Ok, S::Error>
+where S: Serializer,
+{
+    if let Some(v) = *x {
+        let value = if v { "yes" } else { "no" };
+        s.serialize_str(value)
+    } else {
+        s.serialize_none()
+    }
 }
 
 impl<'t> RequestBuilder<'t, response::CreatedServer> {}

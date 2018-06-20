@@ -36,6 +36,7 @@ fn create_server(m: &ArgMatches, vultr_mgr: &VultrMgr) {
     let snapshot = m.value_of("snapshot").unwrap();
     let hostname = m.value_of("hostname");
     let label = m.value_of("label");
+    let epn = if m.occurrences_of("epn") > 0 { Some(true) } else { None };
 
     match vultr_mgr.servers().create(&ServerOptions {
         dc_id: location,
@@ -45,6 +46,7 @@ fn create_server(m: &ArgMatches, vultr_mgr: &VultrMgr) {
         hostname: hostname,
         label: label,
         tag: None,
+        enable_private_network: epn,
     }).retrieve() {
         Ok(server) => println!("New Server: {}", server),
         Err(e) => println!("Error: {}", e),
