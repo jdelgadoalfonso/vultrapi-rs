@@ -60,7 +60,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "DCID=1&VPSPLANID=1&OSID=164&SNAPSHOTID="
         debug!("Create new Server");
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/create"),
             resp_t: PhantomData,
@@ -73,7 +73,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Destroy Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/destroy"),
             resp_t: PhantomData,
@@ -86,7 +86,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Reboot Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/reboot"),
             resp_t: PhantomData,
@@ -99,7 +99,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Halt Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/halt"),
             resp_t: PhantomData,
@@ -112,7 +112,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Start Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/start"),
             resp_t: PhantomData,
@@ -127,7 +127,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         let params = &[("SUBID", Some(sub_id)), ("VPSPLANID", Some(plan_id))];
         let body = serde_urlencoded::to_string(params).unwrap();
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/upgrade_plan"),
             resp_t: PhantomData,
@@ -142,7 +142,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         let params = &[("SUBID", Some(sub_id))];
         let url_params = serde_urlencoded::to_string(params).unwrap();
         RequestBuilder {
-            method: Method::Get,
+            method: Method::GET,
             api_key: self.api_key,
             url: format!("https://api.vultr.com/v1/server/upgrade_plan_list?{}", url_params),
             resp_t: PhantomData,
@@ -155,7 +155,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Enable Backup on Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/backup_enable"),
             resp_t: PhantomData,
@@ -168,7 +168,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Disable Backup on Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/backup_disable"),
             resp_t: PhantomData,
@@ -181,7 +181,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965"
         debug!("Get Backup Schedule for Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/backup_get_schedule"),
             resp_t: PhantomData,
@@ -196,7 +196,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965&cron_type=weekly&hour=8&dow=6"
         debug!("Set Backup Schedule for Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/backup_set_schedule"),
             resp_t: PhantomData,
@@ -211,7 +211,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         // body: "SUBID=576965&BACKUPID=543d34149403a"
         debug!("Set Backup Schedule for Server: {}", sub_id);
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/backup_set_schedule"),
             resp_t: PhantomData,
@@ -228,7 +228,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         let params = &[("SUBID", Some(sub_id)), ("label", Some(label))];
         let body = serde_urlencoded::to_string(params).unwrap();
         RequestBuilder {
-            method: Method::Post,
+            method: Method::POST,
             api_key: self.api_key,
             url: String::from("https://api.vultr.com/v1/server/label_set"),
             resp_t: PhantomData,

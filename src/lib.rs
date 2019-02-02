@@ -1,10 +1,8 @@
 #![crate_type = "lib"]
-#![feature(custom_derive, custom_attribute, plugin)]
-#![deny(trivial_casts, trivial_numeric_casts, unsafe_code, unused_import_braces)]
+#![feature(nll)]
 
 #[macro_use]
 extern crate failure;
-#[macro_use]
 extern crate hyper;
 extern crate reqwest;
 extern crate serde;

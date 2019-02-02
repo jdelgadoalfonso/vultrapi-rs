@@ -1,6 +1,6 @@
 use ::ResultVultr;
 use hyper::{
-    StatusCode, header::{ContentType, Headers}
+    StatusCode, header::{CONTENT_TYPE, HeaderMap, HeaderName}
 };
 use response::{HeaderOnly, NamedResponse};
 use reqwest::{Client, Method, RequestBuilder};
@@ -8,8 +8,6 @@ use serde::de::DeserializeOwned;
 use serde_json::{self, Value};
 use std::io::Read;
 
-
-header! { (APIKEY, "API-Key") => [String] }
 
 pub trait BaseRequest {
     fn url(&self) -> &str;
@@ -23,27 +21,26 @@ pub trait VultrRequest<T>: BaseRequest
 {
     fn request(&self) -> RequestBuilder {
         let client = Client::new();
-        let mut req_builder = client.request(self.method(), self.url());
-        let mut headers = Headers::new();
+        let req_builder = client.request(self.method(), self.url());
+        let mut headers = HeaderMap::new();
+        let api_key = HeaderName::from_static("API-Key");
+
+        headers.insert(CONTENT_TYPE, "application/x-www-form-urlencoded".parse().unwrap());
+        headers.insert(api_key, self.api_key().parse().unwrap());
 
         if let Some(b) = self.body() {
-            req_builder.body(b);
-        }
-
-        headers.set(ContentType("application/x-www-form-urlencoded".parse().unwrap()));
-        headers.set(APIKEY(self.api_key().into()));
-
-        req_builder.headers(headers);
-
-        req_builder
+            req_builder.body(b)
+        } else {
+            req_builder
+        }.headers(headers)
     }
 
     fn retrieve_header(&self) -> ResultVultr<HeaderOnly> {
-        let mut rb = self.request();
+        let rb = self.request();
         let res = rb.send()?;
         let header = HeaderOnly::from_response(res)?;
 
-        if header.raw_status != StatusCode::Ok {
+        if header.raw_status != StatusCode::OK {
             Err(format_err!("{:?}", header.raw_status))
         } else {
             Ok(header)
@@ -51,13 +48,13 @@ pub trait VultrRequest<T>: BaseRequest
     }
 
     fn retrieve_json(&self) -> ResultVultr<String> {
-        let mut rb = self.request();
+        let rb = self.request();
         let mut res = rb.send()?;
         let mut content = String::new();
 
         res.read_to_string(&mut content)?;
 
-        if res.status() != StatusCode::Ok {
+        if res.status() != StatusCode::OK {
             Err(format_err!("{}", content))
         } else {
             Ok(content)

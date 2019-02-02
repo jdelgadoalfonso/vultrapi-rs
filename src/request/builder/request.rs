@@ -17,7 +17,7 @@ impl<'t, T> RequestBuilder<'t, T> {
     pub fn with_api_key(api_key: &'t str) -> RequestBuilder<'t, T> {
         RequestBuilder {
             api_key: api_key,
-            method: Method::Get,
+            method: Method::GET,
             url: String::new(),
             resp_t: PhantomData,
             body: None,
@@ -29,7 +29,7 @@ impl<'t, T> RequestBuilder<'t, T> {
     {
         RequestBuilder {
             api_key: api_key,
-            method: Method::Get,
+            method: Method::GET,
             url: url.into(),
             resp_t: PhantomData,
             body: None,
