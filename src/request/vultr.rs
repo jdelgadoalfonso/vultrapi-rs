@@ -23,7 +23,7 @@ pub trait VultrRequest<T>: BaseRequest
         let client = Client::new();
         let req_builder = client.request(self.method(), self.url());
         let mut headers = HeaderMap::new();
-        let api_key = HeaderName::from_static("API-Key");
+        let api_key = HeaderName::from_static("api-key");
 
         headers.insert(CONTENT_TYPE, "application/x-www-form-urlencoded".parse().unwrap());
         headers.insert(api_key, self.api_key().parse().unwrap());
