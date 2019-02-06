@@ -138,7 +138,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
     pub fn upgrade_plan_list(self, sub_id: &str) -> RequestBuilder<'t, response::PlanIds> {
         // POST: "https://api.vultr.com/v1/server/upgrade_plan_list"
         // body: "SUBID=576965"
-        debug!("Retrieve a list of plan ids for Server {}", sub_id, plan_id);
+        debug!("Retrieve a list of plan ids for Server {}", sub_id);
         let params = &[("SUBID", Some(sub_id))];
         let url_params = serde_urlencoded::to_string(params).unwrap();
         RequestBuilder {
@@ -194,7 +194,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
     {
         // POST: "https://api.vultr.com/v1/server/backup_set_schedule"
         // body: "SUBID=576965&cron_type=weekly&hour=8&dow=6"
-        debug!("Set Backup Schedule for Server: {}", sub_id);
+        debug!("Set Backup Schedule for Server: {}", schedule_opt.sub_id);
         RequestBuilder {
             method: Method::POST,
             api_key: self.api_key,
