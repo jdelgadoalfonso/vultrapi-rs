@@ -19,9 +19,13 @@ fn list_servers(m: &ArgMatches, vultr_mgr: &VultrMgr) {
             Err(e) => println!("Error: {}", e),
         }
     } else {
+        let location = m.value_of("loc").unwrap_or("");
+        let tag = m.value_of("tag").unwrap_or("");
         match vultr_mgr.servers().retrieve() {
             Ok(m_servers) => {
-                for (i, server) in &m_servers {
+                for (i, server) in m_servers.iter()
+                    .filter(|(_, v)| (location == "" && tag == "") ||
+                                     (v.location == location && v.tag == tag)) {
                     println!("Server {}: {{\n{}\n}}", i, server);
                 }
             },
