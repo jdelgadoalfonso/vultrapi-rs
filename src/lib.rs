@@ -1,5 +1,4 @@
 #![crate_type = "lib"]
-#![feature(nll)]
 
 #[macro_use]
 extern crate failure;
