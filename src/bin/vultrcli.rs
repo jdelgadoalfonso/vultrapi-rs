@@ -1,9 +1,8 @@
-extern crate clap;
-extern crate vultrapi;
+#![feature(nll)]
 
 use clap::{App, ArgMatches, SubCommand};
-use config::Config;
 use cli::{account, application, auth, backup, os, plan, region, snapshot, server};
+use config::Config;
 
 mod config;
 mod cli;
@@ -23,7 +22,8 @@ fn get_api_key(m: &ArgMatches) -> String {
     api_key
 }
 
-pub fn main() {
+#[tokio::main]
+pub async fn main() -> () {
     let matches = App::new("vultrcli")
         .version("1.0")
         .author("Jose A. Delgado <jose.delgado@galgus.net>")
@@ -109,15 +109,15 @@ pub fn main() {
     };
 
     match matches.subcommand() {
-        ("account", Some(m)) => account::run(m, &mut cfg),
-        ("applications", Some(m)) => application::run(m, &mut cfg),
-        ("auth", Some(m)) => auth::run(m, &mut cfg),
-        ("backup", Some(m)) => backup::run(m, &mut cfg),
-        ("os", Some(m)) => os::run(m, &mut cfg),
-        ("plan", Some(m)) => plan::run(m, &mut cfg),
-        ("region", Some(m)) => region::run(m, &mut cfg),
-        ("snapshot", Some(m)) => snapshot::run(m, &mut cfg),
-        ("server", Some(m)) => server::run(m, &mut cfg),
+        ("account", Some(m)) => account::run(m, &mut cfg).await,
+        ("applications", Some(m)) => application::run(m, &mut cfg).await,
+        ("auth", Some(m)) => auth::run(m, &mut cfg).await,
+        ("backup", Some(m)) => backup::run(m, &mut cfg).await,
+        ("os", Some(m)) => os::run(m, &mut cfg).await,
+        ("plan", Some(m)) => plan::run(m, &mut cfg).await,
+        ("region", Some(m)) => region::run(m, &mut cfg).await,
+        ("snapshot", Some(m)) => snapshot::run(m, &mut cfg).await,
+        ("server", Some(m)) => server::run(m, &mut cfg).await,
         _ => (),
     }
 }

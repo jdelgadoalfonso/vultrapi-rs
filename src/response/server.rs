@@ -1,3 +1,4 @@
+use serde::de::{Deserialize, Deserializer};
 use std::{borrow::Cow, collections::HashMap, fmt};
 
 use crate::response::{NotArray, NamedResponse};
@@ -35,7 +36,8 @@ pub struct Server {
     #[serde(rename="VPSPLANID")]
     pub vps_plan_id: String,
     pub v6_network: String,
-    pub v6_main_ip: String,
+    #[serde(deserialize_with = "deserialize_ip")]
+    pub v6_main_ip: Option<String>,
     pub v6_network_size: String,
     pub v6_networks: Vec<HashMap<String, String>>,
     pub label: String,
@@ -49,6 +51,17 @@ pub struct Server {
     pub app_id: String,
     #[serde(rename="FIREWALLGROUPID")]
     pub firewall_group_id: String,
+}
+
+fn deserialize_ip<'de, D>(d: D) -> Result<Option<String>, D::Error>
+where
+    D: Deserializer<'de>,
+{
+    if let Ok(s) = String::deserialize(d) {
+        Ok(Some(s))
+    } else {
+        Ok(None)
+    }
 }
 
 impl NotArray for CreatedServer {}
@@ -85,7 +98,7 @@ impl fmt::Display for Server {
                 \tServer State: \"{}\"\n\
                 \tVPSPLANID: \"{}\"\n\
                 \tv6 Network: {:?}\n\
-                \tv6 Main IP: \"{}\"\n\
+                \tv6 Main IP: \"{:?}\"\n\
                 \tv6 Network Size: \"{}\"\n\
                 \tLabel: \"{}\"\n\
                 \tInternal IP: \"{}\"\n\

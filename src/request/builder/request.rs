@@ -67,8 +67,9 @@ impl<T> fmt::Display for RequestBuilder<T> {
     }
 }
 
+#[async_trait]
 impl VultrRequest<HeaderOnly> for RequestBuilder<HeaderOnly> {
-    fn retrieve(&self) -> ResultVultr<HeaderOnly> {
-        self.retrieve_header()
+    async fn retrieve(&self) -> ResultVultr<HeaderOnly> {
+        self.retrieve_header().await
     }
 }

@@ -1,6 +1,8 @@
 #![feature(nll)]
 
 #[macro_use]
+extern crate async_trait;
+#[macro_use]
 extern crate failure;
 extern crate hyper;
 extern crate reqwest;
@@ -17,7 +19,7 @@ mod macros;
 pub mod request;
 pub mod response;
 
-pub use vultr_mgr::VultrMgr;
 pub use request::{RequestBuilder, ServerOptions, ScheduleOptions};
+pub use vultr_mgr::VultrMgr;
 
 pub type ResultVultr<T> = Result<T, failure::Error>;
