@@ -1,8 +1,11 @@
-use ::ResultVultr;
 use hyper::header;
-use response::{self, NamedResponse};
+
 use reqwest::{Response, StatusCode};
+
 use std::{borrow::Cow, fmt};
+
+use crate::ResultVultr;
+use crate::response::{self, NamedResponse};
 
 
 #[derive(Serialize, Deserialize)]
@@ -26,8 +29,8 @@ impl HeaderOnly {
         let status = format!("{}", raw_status);
         Ok(HeaderOnly {
             content_type: c_type,
-            status: status,
-            raw_status: raw_status,
+            status,
+            raw_status,
         })
     }
 }
@@ -45,9 +48,9 @@ impl fmt::Display for HeaderOnly {
 impl fmt::Debug for HeaderOnly {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f,
-               "content-type: {:?}\n\
-                status: {:?}",
-               self.content_type,
-               self.status)
+            "content-type: {:?}\n\
+            status: {:?}",
+            self.content_type,
+            self.status)
     }
 }

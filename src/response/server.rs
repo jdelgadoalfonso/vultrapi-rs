@@ -1,5 +1,6 @@
-use response::{NotArray, NamedResponse};
 use std::{borrow::Cow, collections::HashMap, fmt};
+
+use crate::response::{NotArray, NamedResponse};
 
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]

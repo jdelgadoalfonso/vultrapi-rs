@@ -1,22 +1,22 @@
-use ::ResultVultr;
-use request::{BaseRequest, VultrRequest};
-use response::HeaderOnly;
 use reqwest::Method;
 use std::{fmt, marker::PhantomData};
 
+use crate::ResultVultr;
+use crate::request::{BaseRequest, VultrRequest};
+use crate::response::HeaderOnly;
 
-pub struct RequestBuilder<'t, T> {
-    pub api_key: &'t str,
+pub struct RequestBuilder<T> {
+    pub api_key: String,
     pub method: Method,
     pub url: String,
-    pub resp_t: PhantomData<*const T>,
+    pub resp_t: PhantomData<T>,
     pub body: Option<String>,
 }
 
-impl<'t, T> RequestBuilder<'t, T> {
-    pub fn with_api_key(api_key: &'t str) -> RequestBuilder<'t, T> {
+impl<T> RequestBuilder<T> {
+    pub fn with_api_key(api_key: &str) -> RequestBuilder<T> {
         RequestBuilder {
-            api_key: api_key,
+            api_key: String::from(api_key),
             method: Method::GET,
             url: String::new(),
             resp_t: PhantomData,
@@ -24,11 +24,11 @@ impl<'t, T> RequestBuilder<'t, T> {
         }
     }
 
-    pub fn new<S>(api_key: &'t str, url: S) -> RequestBuilder<'t, T>
+    pub fn new<S>(api_key: &str, url: S) -> RequestBuilder<T>
         where S: Into<String>
     {
         RequestBuilder {
-            api_key: api_key,
+            api_key: String::from(api_key),
             method: Method::GET,
             url: url.into(),
             resp_t: PhantomData,
@@ -37,14 +37,14 @@ impl<'t, T> RequestBuilder<'t, T> {
     }
 }
 
-impl<'t, T> BaseRequest for RequestBuilder<'t, T> {
+impl<T> BaseRequest for RequestBuilder<T> {
     fn url(&self) -> &str { &self.url[..] }
-    fn api_key(&self) -> &str { self.api_key }
+    fn api_key(&self) -> &str { &self.api_key[..] }
     fn method(&self) -> Method { self.method.clone() }
     fn body(&self) -> Option<String> { self.body.clone() }
 }
 
-impl<'t, T> fmt::Display for RequestBuilder<'t, T> {
+impl<T> fmt::Display for RequestBuilder<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f,
                "method: {}\n\
@@ -67,7 +67,7 @@ impl<'t, T> fmt::Display for RequestBuilder<'t, T> {
     }
 }
 
-impl<'t> VultrRequest<HeaderOnly> for RequestBuilder<'t, HeaderOnly> {
+impl VultrRequest<HeaderOnly> for RequestBuilder<HeaderOnly> {
     fn retrieve(&self) -> ResultVultr<HeaderOnly> {
         self.retrieve_header()
     }

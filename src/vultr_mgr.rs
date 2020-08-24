@@ -1,5 +1,5 @@
-use request::RequestBuilder;
-use response;
+use crate::request::RequestBuilder;
+use crate::response;
 
 
 /// The main structure through which all calls are made. This holds a slice of the API KEY
@@ -26,7 +26,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn account(&self) -> RequestBuilder<'t, response::Account> {
+    pub fn account(&self) -> RequestBuilder<response::Account> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/account/info")
     }
 
@@ -46,7 +46,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn applications(&self) -> RequestBuilder<'t, response::Applications> {
+    pub fn applications(&self) -> RequestBuilder<response::Applications> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/app/list")
     }
 
@@ -65,7 +65,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn auth(&self) -> RequestBuilder<'t, response::Auth> {
+    pub fn auth(&self) -> RequestBuilder<response::Auth> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/auth/info")
     }
 
@@ -84,7 +84,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn backups(&self) -> RequestBuilder<'t, response::Backups> {
+    pub fn backups(&self) -> RequestBuilder<response::Backups> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/backup/list")
     }
 
@@ -103,7 +103,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn operating_systems(&self) -> RequestBuilder<'t, response::OperatingSystems> {
+    pub fn operating_systems(&self) -> RequestBuilder<response::OperatingSystems> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/os/list")
     }
 
@@ -122,7 +122,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn snapshots(&self) -> RequestBuilder<'t, response::Snapshots> {
+    pub fn snapshots(&self) -> RequestBuilder<response::Snapshots> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/snapshot/list")
     }
 
@@ -141,11 +141,11 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn servers(&self) -> RequestBuilder<'t, response::Servers> {
+    pub fn servers(&self) -> RequestBuilder<response::Servers> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/server/list")
     }
 
-    pub fn server_by_filter(&self, sub_id: &str) -> RequestBuilder<'t, response::Server> {
+    pub fn server_by_filter(&self, sub_id: &str) -> RequestBuilder<response::Server> {
         let mut url = String::from("https://api.vultr.com/v1/server/list?SUBID=");
         url.push_str(sub_id);
         RequestBuilder::new(self.api_key, url.as_str())
@@ -167,7 +167,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn regions(&self) -> RequestBuilder<'t, response::Regions> {
+    pub fn regions(&self) -> RequestBuilder<response::Regions> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/regions/list")
     }
 
@@ -186,7 +186,7 @@ impl<'t> VultrMgr<'t> {
     ///     Err(_) => println!("Error")
     /// }
     /// ```
-    pub fn plans(&self) -> RequestBuilder<'t, response::Plans> {
+    pub fn plans(&self) -> RequestBuilder<response::Plans> {
         RequestBuilder::new(self.api_key, "https://api.vultr.com/v1/plans/list")
     }
 }

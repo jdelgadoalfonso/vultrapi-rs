@@ -1,7 +1,7 @@
-use response;
-use request::{VultrRequest, RequestBuilder};
+use crate::response;
+use crate::request::{VultrRequest, RequestBuilder};
 
 
-impl<'t> RequestBuilder<'t, response::Schedule> {}
+impl<'t> RequestBuilder<response::Schedule> {}
 
-impl<'t> VultrRequest<response::Schedule> for RequestBuilder<'t, response::Schedule> {}
+impl<'t> VultrRequest<response::Schedule> for RequestBuilder<response::Schedule> {}

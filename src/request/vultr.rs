@@ -1,12 +1,14 @@
-use ::ResultVultr;
 use hyper::{
     StatusCode, header::{CONTENT_TYPE, HeaderMap, HeaderName}
 };
-use response::{HeaderOnly, NamedResponse};
+
 use reqwest::{Client, Method, RequestBuilder};
+
 use serde::de::DeserializeOwned;
 use serde_json::{self, Value};
-use std::io::Read;
+
+use crate::response::{HeaderOnly, NamedResponse};
+use crate::ResultVultr;
 
 
 pub trait BaseRequest {

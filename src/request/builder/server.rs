@@ -1,10 +1,11 @@
-use response;
-use request::{VultrRequest, RequestBuilder};
 use reqwest::Method;
+
 use serde_urlencoded;
 use serde::ser::Serializer;
 use std::marker::PhantomData;
 
+use crate::response;
+use crate::request::{VultrRequest, RequestBuilder};
 
 #[derive(Serialize)]
 pub struct ServerOptions<'t> {
@@ -44,17 +45,17 @@ where S: Serializer,
     }
 }
 
-impl<'t> RequestBuilder<'t, response::CreatedServer> {}
+impl<'t> RequestBuilder<response::CreatedServer> {}
 
-impl<'t> VultrRequest<response::CreatedServer> for RequestBuilder<'t, response::CreatedServer> {}
+impl<'t> VultrRequest<response::CreatedServer> for RequestBuilder<response::CreatedServer> {}
 
-impl<'t> RequestBuilder<'t, response::Server> {}
+impl<'t> RequestBuilder<response::Server> {}
 
-impl<'t> VultrRequest<response::Server> for RequestBuilder<'t, response::Server> {}
+impl<'t> VultrRequest<response::Server> for RequestBuilder<response::Server> {}
 
-impl<'t> RequestBuilder<'t, response::Servers> {
+impl<'t> RequestBuilder<response::Servers> {
     pub fn create(self, server_opt: &ServerOptions) ->
-    RequestBuilder<'t, response::CreatedServer>
+    RequestBuilder<response::CreatedServer>
     {
         // POST: "https://api.vultr.com/v1/server/create"
         // body: "DCID=1&VPSPLANID=1&OSID=164&SNAPSHOTID="
@@ -68,7 +69,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn destroy(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly>  {
+    pub fn destroy(self, sub_id: &str) -> RequestBuilder<response::HeaderOnly>  {
         // POST: "https://api.vultr.com/v1/server/destroy"
         // body: "SUBID=576965"
         debug!("Destroy Server: {}", sub_id);
@@ -81,7 +82,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn reboot(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly>  {
+    pub fn reboot(self, sub_id: &str) -> RequestBuilder<response::HeaderOnly>  {
         // POST: "https://api.vultr.com/v1/server/reboot"
         // body: "SUBID=576965"
         debug!("Reboot Server: {}", sub_id);
@@ -94,7 +95,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn halt(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
+    pub fn halt(self, sub_id: &str) -> RequestBuilder<response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/halt"
         // body: "SUBID=576965"
         debug!("Halt Server: {}", sub_id);
@@ -107,7 +108,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn start(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
+    pub fn start(self, sub_id: &str) -> RequestBuilder<response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/start"
         // body: "SUBID=576965"
         debug!("Start Server: {}", sub_id);
@@ -120,7 +121,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn upgrade_plan(self, sub_id: &str, plan_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
+    pub fn upgrade_plan(self, sub_id: &str, plan_id: &str) -> RequestBuilder<response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/upgrade_plan"
         // body: "SUBID=576965&VPSPLANID=201"
         debug!("Upgrade Server {} to plan {}", sub_id, plan_id);
@@ -135,7 +136,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn upgrade_plan_list(self, sub_id: &str) -> RequestBuilder<'t, response::PlanIds> {
+    pub fn upgrade_plan_list(self, sub_id: &str) -> RequestBuilder<response::PlanIds> {
         // POST: "https://api.vultr.com/v1/server/upgrade_plan_list"
         // body: "SUBID=576965"
         debug!("Retrieve a list of plan ids for Server {}", sub_id);
@@ -150,7 +151,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn backup_enable(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
+    pub fn backup_enable(self, sub_id: &str) -> RequestBuilder<response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/backup_enable"
         // body: "SUBID=576965"
         debug!("Enable Backup on Server: {}", sub_id);
@@ -163,7 +164,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn backup_disable(self, sub_id: &str) -> RequestBuilder<'t, response::HeaderOnly> {
+    pub fn backup_disable(self, sub_id: &str) -> RequestBuilder<response::HeaderOnly> {
         // POST: "https://api.vultr.com/v1/server/backup_disable"
         // body: "SUBID=576965"
         debug!("Disable Backup on Server: {}", sub_id);
@@ -176,7 +177,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
         }
     }
 
-    pub fn backup_get_schedule(self, sub_id: &str) -> RequestBuilder<'t, response::Schedule> {
+    pub fn backup_get_schedule(self, sub_id: &str) -> RequestBuilder<response::Schedule> {
         // POST: "https://api.vultr.com/v1/server/backup_get_schedule"
         // body: "SUBID=576965"
         debug!("Get Backup Schedule for Server: {}", sub_id);
@@ -190,7 +191,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
     }
 
     pub fn backup_set_schedule(self, schedule_opt: &ScheduleOptions) ->
-    RequestBuilder<'t, response::HeaderOnly>
+    RequestBuilder<response::HeaderOnly>
     {
         // POST: "https://api.vultr.com/v1/server/backup_set_schedule"
         // body: "SUBID=576965&cron_type=weekly&hour=8&dow=6"
@@ -205,7 +206,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
     }
 
     pub fn restore_backup(self, sub_id: &str, backup_id: &str) ->
-    RequestBuilder<'t, response::HeaderOnly>
+    RequestBuilder<response::HeaderOnly>
     {
         // POST: "https://api.vultr.com/v1/server/restore_backup"
         // body: "SUBID=576965&BACKUPID=543d34149403a"
@@ -220,7 +221,7 @@ impl<'t> RequestBuilder<'t, response::Servers> {
     }
 
     pub fn label_set(self, sub_id: &str, label: &str) ->
-    RequestBuilder<'t, response::HeaderOnly>
+    RequestBuilder<response::HeaderOnly>
     {
         // POST: "https://api.vultr.com/v1/server/label_set"
         // body: "SUBID=576965&label=example"
@@ -238,6 +239,6 @@ impl<'t> RequestBuilder<'t, response::Servers> {
     }
 }
 
-impl<'t> VultrRequest<response::Servers> for RequestBuilder<'t, response::Servers> {}
+impl<'t> VultrRequest<response::Servers> for RequestBuilder<response::Servers> {}
 
-impl<'t> VultrRequest<response::PlanIds> for RequestBuilder<'t, response::PlanIds> {}
+impl<'t> VultrRequest<response::PlanIds> for RequestBuilder<response::PlanIds> {}

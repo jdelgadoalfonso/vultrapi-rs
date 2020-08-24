@@ -1,21 +1,23 @@
-use response;
-use request::{VultrRequest, RequestBuilder};
 use reqwest::Method;
+
 use serde_urlencoded;
 use std::marker::PhantomData;
 
+use crate::request::{VultrRequest, RequestBuilder};
+use crate::response;
 
-impl<'t> RequestBuilder<'t, response::CreatedSnapshot> {}
 
-impl<'t> VultrRequest<response::CreatedSnapshot> for RequestBuilder<'t, response::CreatedSnapshot> {}
+impl<'t> RequestBuilder<response::CreatedSnapshot> {}
 
-impl<'t> RequestBuilder<'t, response::Snapshot> {}
+impl<'t> VultrRequest<response::CreatedSnapshot> for RequestBuilder<response::CreatedSnapshot> {}
 
-impl<'t> VultrRequest<response::Snapshot> for RequestBuilder<'t, response::Snapshot> {}
+impl<'t> RequestBuilder<response::Snapshot> {}
 
-impl<'t> RequestBuilder<'t, response::Snapshots> {
+impl<'t> VultrRequest<response::Snapshot> for RequestBuilder<response::Snapshot> {}
+
+impl<'t> RequestBuilder<response::Snapshots> {
     pub fn create(self, sub_id: &str, desc: Option<&str>) ->
-    RequestBuilder<'t, response::CreatedSnapshot>
+    RequestBuilder<response::CreatedSnapshot>
     {
         // POST: "https://api.vultr.com/v1/snapshot/create"
         // body: "SUBID=1&description=blablabla"
@@ -32,7 +34,7 @@ impl<'t> RequestBuilder<'t, response::Snapshots> {
     }
 
     pub fn destroy(self, snapshot_id: &str) ->
-    RequestBuilder<'t, response::HeaderOnly>
+    RequestBuilder<response::HeaderOnly>
     {
         // POST: "https://api.vultr.com/v1/snapshot/destroy"
         // body: "SNAPSHOTID=1"
@@ -47,4 +49,4 @@ impl<'t> RequestBuilder<'t, response::Snapshots> {
     }
 }
 
-impl<'t> VultrRequest<response::Snapshots> for RequestBuilder<'t, response::Snapshots> {}
+impl<'t> VultrRequest<response::Snapshots> for RequestBuilder<response::Snapshots> {}
