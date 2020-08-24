@@ -1,6 +1,6 @@
 [package]
 name = "vultrapi"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Jose A. Delgado <jdelgado@galgus.net>"]
 description = "A wrapper library for the Vultr API v1"
 license = "MIT"
