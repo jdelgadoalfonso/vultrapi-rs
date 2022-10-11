@@ -1,5 +1,3 @@
-#![feature(nll)]
-
 use clap::{App, ArgMatches, SubCommand};
 use cli::{account, application, auth, backup, os, plan, region, snapshot, server};
 use config::Config;

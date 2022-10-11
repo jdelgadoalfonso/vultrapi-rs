@@ -7,7 +7,7 @@ use crate::response::{NotArray, NamedResponse};
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct CreatedServer {
     #[serde(rename="SUBID")]
-    sub_id: String
+    sub_id: u64,
 }
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]

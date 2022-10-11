@@ -7,7 +7,7 @@ license = "MIT"
 repository = "https://github.com/jdelgadoalfonso/vultrapi-rs.git"
 documentation = "http://jdelgadoalfonso.github.io/vultrapi-rs"
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 keywords = ["vultr", "lib", "api"]
 
 [dependencies]
