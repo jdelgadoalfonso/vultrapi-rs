@@ -1,6 +1,7 @@
 use hyper::header;
 
 use reqwest::{Response, StatusCode};
+use reqwest::header::CONTENT_TYPE;
 
 use std::{borrow::Cow, fmt};
 
@@ -21,7 +22,7 @@ impl response::NotArray for HeaderOnly {}
 
 impl HeaderOnly {
     pub fn from_response(r: Response) -> ResultVultr<HeaderOnly> {
-        let c_type = match r.headers().get(header::CONTENT_TYPE) {
+        let c_type = match r.headers().get(CONTENT_TYPE) {
             Some(c) => String::from(c.to_str()?),
             None => String::new(),
         };

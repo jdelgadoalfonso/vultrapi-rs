@@ -1,8 +1,5 @@
-use hyper::{
-    StatusCode, header::{CONTENT_TYPE, HeaderMap, HeaderName}
-};
-
-use reqwest::{Client, Method, RequestBuilder};
+use reqwest::{Client, Method, RequestBuilder, StatusCode};
+use reqwest::header::{HeaderMap, CONTENT_TYPE, HeaderName};
 
 use serde::de::DeserializeOwned;
 use serde_json::{self, Value};
@@ -18,7 +15,6 @@ pub trait BaseRequest {
     fn body(&self) -> Option<String>;
 }
 
-#[async_trait]
 pub trait VultrRequest<T>: BaseRequest
 where
     T: DeserializeOwned + NamedResponse + 'static
@@ -39,9 +35,9 @@ where
         }.headers(headers)
     }
 
-    async fn retrieve_header(&self) -> ResultVultr<HeaderOnly> {
+    fn retrieve_header(&self) -> ResultVultr<HeaderOnly> {
         let rb = self.request();
-        let res = rb.send().await?;
+        let res = rb.send()?;
         let header = HeaderOnly::from_response(res)?;
 
         if header.raw_status != StatusCode::OK {
@@ -51,18 +47,16 @@ where
         }
     }
 
-    async fn retrieve_json(&self) -> ResultVultr<String> {
+    fn retrieve_json(&self) -> ResultVultr<String> {
         let rb = self.request();
-        let content = rb.send()
-            .await?
-            .text()
-            .await?;
+        let content = rb.send()?
+            .text()?;
 
         Ok(content)
     }
 
-    async fn retrieve(&self) -> ResultVultr<T> {
-        let resp = self.retrieve_json().await?;
+    fn retrieve(&self) -> ResultVultr<T> {
+        let resp = self.retrieve_json()?;
         let v = serde_json::from_str::<Value>(resp.as_ref())?;
         let t = serde_json::from_value(v)?;
 
